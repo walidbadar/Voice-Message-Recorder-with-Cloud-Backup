@@ -7,7 +7,7 @@ import connect
 
 app = Flask(__name__)
 
-path = '/home/weedingAudioBook'
+path = '/home/weddingAudioBook'
 dbPath = path + '/DB/'
 
 @app.route("/")
@@ -92,4 +92,4 @@ def ipAddress():
     return ipAddr[:13]
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', port=80)
+    app.run(debug=True, host='0.0.0.0', port=90)
