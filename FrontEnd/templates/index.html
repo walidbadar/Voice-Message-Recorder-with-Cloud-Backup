@@ -1,0 +1,56 @@
+<html>
+<head>
+    <title>Wedding Audio Guestbook</title>
+    <link href="{{ url_for('static', filename='bootstrap.min.css') }}" rel="stylesheet" id="bootstrap-css">
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" id="bootstrap-css">
+    <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+
+</head>
+<body>
+    <div class="wrapper fadeInDown">
+		<div id="formContent">
+			<!-- Header -->
+			<div class="fadeIn first">
+				<h2>Wedding Audio Guestbook</h2>
+			</div>
+
+			<!-- Login Form -->
+		<form>
+			<div class="fadeIn second">
+				<label>Battery Status:</label>
+				<label>{{ bat }} </label>
+			</div>
+			<div class="fadeIn second">
+				<label>Pi CPU Temperature:</label>
+				<label>{{ temp }} </label>
+			</div>
+			<div class="fadeIn second">
+				<label>Available Storage:</label>
+				<label>{{ storage }}</label>
+			</div>
+			<div class="fadeIn second">
+				<label>Upload Success Factor:</label>
+				<label>{{ successFactor }}</label>
+			</div>
+			<div class="fadeIn second">
+				<label>Remaining Files to be Uploaded:</label>
+				<label>{{ remainingFiles }}</label>
+			</div>
+			<div class="fadeIn second">
+				<label>WiFi Signal Strength:</label>
+				<label>{{ wifi }}</label>
+			</div>
+			<div class="fadeIn second">
+				<label>Network Name:</label>
+				<label>{{ netName }}</label>
+			</div>
+			<div class="fadeIn second">
+				<label>IP Address:</label>
+				<label>{{ ipAddr }}</label>
+			</div>
+		</form>
+		</div>
+    </div>
+</body>
+</html>
