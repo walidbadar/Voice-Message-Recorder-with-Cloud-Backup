@@ -28,6 +28,9 @@ def battery():
     if bat[:15] == "singlebattery: ":
         bat = (bat[15:] + "%").replace('\n', ' ')
         return bat
+    elif bat[:9] == "battery: ":
+        bat = (bat[9:] + "%").replace('\n', ' ')
+        return bat
 
 def temperature():
     temp = os.popen('cat /sys/class/thermal/thermal_zone0/temp').read()
