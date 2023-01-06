@@ -64,7 +64,7 @@ def wifiSignalStrength():
     strength = 0
     for line in output.split('\n'):
         if 'Signal level' in line:
-            pattern = re.compile(r'Signal level=-(?\d+) dBm')
+            pattern = re.compile(r'Signal level=(-?\d+) dBm')
             match = pattern.search(line)
             strength = int(match.group(1)[1:])
             break
