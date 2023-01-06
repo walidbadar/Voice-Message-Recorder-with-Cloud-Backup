@@ -28,9 +28,6 @@ def battery():
     if bat[:15] == "singlebattery: ":
         bat = (bat[15:] + "%").replace('\n', ' ')
         return bat
-    
-    else:
-        return "Unable to Get Battery Status"
 
 def temperature():
     temp = os.popen('cat /sys/class/thermal/thermal_zone0/temp').read()
