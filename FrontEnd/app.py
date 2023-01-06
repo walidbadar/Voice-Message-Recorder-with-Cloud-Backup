@@ -35,7 +35,7 @@ def temperature():
 
 def sdCard():
     storage = os.popen('df -h /').read()
-    storage = storage[78:82] + " of " + storage[66:69]
+    storage = storage[77:82] + " of " + storage[65:69]
     return storage
 
 def successFactorRatio():
