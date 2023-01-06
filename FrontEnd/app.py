@@ -7,7 +7,7 @@ import connect
 
 app = Flask(__name__)
 
-path = '/home'
+path = '/home/weedingAudioBook'
 dbPath = path + '/DB/'
 
 @app.route("/")
