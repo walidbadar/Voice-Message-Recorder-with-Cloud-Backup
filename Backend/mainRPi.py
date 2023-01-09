@@ -3,8 +3,6 @@ import sounddevice as sd
 import soundfile as sf
 import datetime as dt
 import numpy as np
-from scipy.io.wavfile import write
-from ms_graph import generate_access_token, GRAPH_API_ENDPOINT
 import RPi.GPIO as GPIO
 # import OPi.GPIO as GPIO
 
