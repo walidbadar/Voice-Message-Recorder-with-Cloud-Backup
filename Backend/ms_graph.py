@@ -5,7 +5,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
-from webdriver_manager.chrome import ChromeDriverManager
+# from webdriver_manager.chrome import ChromeDriverManager
 from datetime import datetime
 import json
 import os
@@ -44,11 +44,11 @@ def generate_access_token(app_id, scopes):
         print('user_code: ' + flow['user_code'])
 
         options = Options()
-        # options.add_argument("--headless")
+        options.add_argument("--headless")
         options.add_argument("--disable-gpu")
         options.add_argument('--no-sandbox')
-        # driver = webdriver.Chrome(options=options)
-        driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+        driver = webdriver.Chrome(options=options)
+        # driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
         driver.get('https://microsoft.com/devicelogin')
 
         xpath_token = '/html/body/div/form/div/div/div[1]/div[3]/div/div/div/div[4]/div/input'
