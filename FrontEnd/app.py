@@ -7,7 +7,7 @@ import connect
 
 app = Flask(__name__)
 
-path = '/home/weddingAudioBook'
+path = '/home/Wedding-Audio-Book'
 dbPath = path + '/DB/'
 
 @app.route("/")
@@ -20,6 +20,14 @@ def landing():
     wifi = wifiSignalStrength()
     netName = networkName()
     ipAddr = ipAddress()
+    # bat = "88 %"
+    # storage = "86G OF 127G"
+    # temp = "45 °C"
+    # successFactor = "100 %"
+    # remainingFiles = "0 of 13"
+    # wifi = "Good"
+    # netName = "NetGear"
+    # ipAddr = "192.168.1.100"
     return render_template('index.html', bat=bat, storage=storage, temp=temp, successFactor=successFactor,
                            remainingFiles=remainingFiles, wifi=wifi, netName=netName, ipAddr=ipAddr)
 
@@ -39,7 +47,7 @@ def temperature():
 
 def sdCard():
     storage = os.popen('df -h /').read()
-    storage = storage[77:82] + " of " + storage[65:69]
+    storage = storage[77:82] + " of " + storage[66:69]
     return storage
 
 def successFactorRatio():
