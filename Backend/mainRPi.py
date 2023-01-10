@@ -2,7 +2,9 @@ import os, time, serial, requests, queue, tempfile, threading
 import sounddevice as sd
 import soundfile as sf
 import datetime as dt
-import numpy as np
+from pydub import AudioSegment
+from pydub.playback import play
+from ms_graph import generate_access_token, GRAPH_API_ENDPOINT
 import RPi.GPIO as GPIO
 # import OPi.GPIO as GPIO
 
@@ -48,6 +50,7 @@ def recThread(rec=None):
                     curTime = time.time()
                     if (curTime - preTime) > recordingTime:
                         print("Recording Ended")
+                        play(AudioSegment.from_file("recordEnd.wav"))
                         break
     else:
         print("Recording Ended by Force")
@@ -114,7 +117,3 @@ GPIO.add_event_detect(hangUp, GPIO.RISING, callback=recThread, bouncetime=1000)
 
 while True:
     pass
-
-
-
-
