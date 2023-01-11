@@ -14,3 +14,5 @@
 <li>python-msgraph</li>
 <li>msal</li>
 </ul>
+
+pip3 install -r requirments.txt
