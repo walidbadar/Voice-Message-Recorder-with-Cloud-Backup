@@ -6,3 +6,4 @@ pydub
 selenium
 msgraph_core
 python-msgraph
+msal
