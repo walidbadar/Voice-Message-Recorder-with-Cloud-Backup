@@ -12,4 +12,5 @@
 <li>selenium</li>
 <li>msgraph_core</li>
 <li>python-msgraph</li>
+<li>msal</li>
 </ul>
