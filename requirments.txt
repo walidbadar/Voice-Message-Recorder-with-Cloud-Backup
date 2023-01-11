@@ -1,0 +1,8 @@
+flask
+wifi
+sounddevice
+soundfile
+pydub
+selenium
+msgraph_core
+python-msgraph
