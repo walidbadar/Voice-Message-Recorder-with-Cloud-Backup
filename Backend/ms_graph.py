@@ -68,6 +68,7 @@ def generate_access_token(app_id, scopes):
         allow_input.send_keys(Keys.RETURN)
         time.sleep(3)
         driver.close()
+        print("Authentication Done")
 
         token_response = client.acquire_token_by_device_flow(flow)
 
