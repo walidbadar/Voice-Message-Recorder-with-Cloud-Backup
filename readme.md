@@ -2,7 +2,13 @@
 
 ![Sample](https://user-images.githubusercontent.com/81442784/211213577-1323ff6a-4214-4540-96cf-0b4b39d02c09.png)
 
-<h2 id="dependencies">Python Dependencies</h2>
+<h2 id="dependencies">Install Nextcloud</h2>
+<ul>
+<li>sudo su</li>
+<li>curl -sSL https://raw.githubusercontent.com/nextcloud/nextcloudpi/master/install.sh | bash</li>
+</ul>
+
+<h3 id="dependencies">Python Dependencies</h3>
 <ul>
 <li>flask</li>
 <li>wifi</li>
@@ -18,7 +24,7 @@
 <p>sudo pip3 install -r requirments.txt</p>
 </p>sudo apt-get install chromium-chromedriver</p>
 
-<h2><a id="user-content-important" class="anchor" aria-hidden="true" href="#important"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>PiSugar 3 Series Usage</h2>
+<h4><a id="user-content-important" class="anchor" aria-hidden="true" href="#important"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>PiSugar 3 Series Usage</h4>
 <ul>
 <li>
 <p>This software will occupy i2c addresses 0x32(RTC) and 0x75(PowerIC). Please avoid other phats using these addresses.</p>
