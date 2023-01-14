@@ -37,7 +37,6 @@ i2cdetect -y 1
 i2cdump -y 1 0x32
 i2cdump -y 1 0x75"><pre class="notranslate"><code># turn on i2c interface
 sudo raspi-config
-
 i2cdetect -y 1
 i2cdump -y 1 0x32
 i2cdump -y 1 0x75
