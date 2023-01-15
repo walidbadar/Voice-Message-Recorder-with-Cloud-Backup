@@ -13,7 +13,7 @@ hangUp = 11
 uploadLoop = 10
 recordingTime = 10
 
-path = '~/Wedding-Audio-Book'
+path = '/home/mm/Wedding-Audio-Book'
 recPath = path + '/Recordings/'
 dbPath = path + '/DB/'
 
