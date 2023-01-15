@@ -4,8 +4,7 @@
 
 <h1 id="dependencies">Install Nextcloud</h1>
 <ul>
-<li>sudo su</li>
-<li>curl -sSL https://raw.githubusercontent.com/nextcloud/nextcloudpi/master/install.sh | bash</li>
+<li>curl -sSL https://raw.githubusercontent.com/nextcloud/nextcloudpi/master/install.sh | sudo bash</li>
 </ul>
 
 <h1 id="dependencies">Python Dependencies</h1>
