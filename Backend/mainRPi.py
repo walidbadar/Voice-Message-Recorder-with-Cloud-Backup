@@ -40,7 +40,7 @@ def recThread(rec=None):
         print("Recording Started")
         curFileName = str(dt.datetime.now())[:-5].replace(':', '.') + ".wav"
 
-        # write(curFileName, 44100, np.empty((0, 1)))
+        sf.write(file=curFileName, samplerate=44100, data=np.empty((0, 1)))
         with sf.SoundFile(path+"\\"+curFileName, mode='x', samplerate=fs, channels=2) as file:
             with sd.InputStream(samplerate=fs, channels=2, callback=callback):
 
