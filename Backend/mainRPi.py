@@ -40,9 +40,9 @@ def recThread(rec=None):
     if GPIO.input(hangUp):
         print("Recording Started")
         curFileName = str(dt.datetime.now())[:-5].replace(':', '.') + ".wav"
-
-        sf.write(file=recPath+curFileName, samplerate=44100, data=np.empty((0, 1)))
-        with sf.SoundFile(recPath+curFileName, mode='x', samplerate=fs, channels=2) as file:
+        
+        # sf.write(file=recPath+curFileName, samplerate=fs, data=np.empty((0, 1)))
+        with sf.SoundFile(file=recPath+curFileName, mode='x', samplerate=fs, channels=1) as file:
             with sd.InputStream(samplerate=fs, channels=1, callback=callback):
 
                 preTime = time.time()
