@@ -1,4 +1,5 @@
 import os, time, serial, requests, queue, tempfile, threading
+import numpy as np
 import sounddevice as sd
 import soundfile as sf
 import datetime as dt
@@ -40,9 +41,9 @@ def recThread(rec=None):
         print("Recording Started")
         curFileName = str(dt.datetime.now())[:-5].replace(':', '.') + ".wav"
 
-        sf.write(file=curFileName, samplerate=44100, data=np.empty((0, 1)))
-        with sf.SoundFile(path+"\\"+curFileName, mode='x', samplerate=fs, channels=2) as file:
-            with sd.InputStream(samplerate=fs, channels=2, callback=callback):
+        sf.write(file=recPath+curFileName, samplerate=44100, data=np.empty((0, 1)))
+        with sf.SoundFile(recPath+curFileName, mode='x', samplerate=fs, channels=2) as file:
+            with sd.InputStream(samplerate=fs, channels=1, callback=callback):
 
                 preTime = time.time()
                 while GPIO.input(hangUp):
