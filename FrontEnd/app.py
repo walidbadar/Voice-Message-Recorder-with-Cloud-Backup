@@ -5,7 +5,7 @@ import re
 
 app = Flask(__name__)
 
-path = '~/Wedding-Audio-Book'
+path = '/home/mm/Wedding-Audio-Book'
 dbPath = path + '/DB/'
 
 @app.route("/")
