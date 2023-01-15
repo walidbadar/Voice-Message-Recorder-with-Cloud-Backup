@@ -44,7 +44,7 @@ def generate_access_token(app_id, scopes):
         print('user_code: ' + flow['user_code'])
 
         options = Options()
-        options.add_argument("--headless")
+        #options.add_argument("--headless")
         options.add_argument("--disable-gpu")
         options.add_argument('--no-sandbox')
         driver = webdriver.Chrome(options=options)
@@ -55,16 +55,16 @@ def generate_access_token(app_id, scopes):
         xpath_username = '/html/body/div/form[1]/div/div/div[2]/div[1]/div/div/div/div/div[1]/div[3]/div/div/div/div[3]/div[2]/div/input[1]'
         xpath_password = '/html/body/div/form[1]/div/div/div[2]/div[1]/div/div/div/div/div/div[3]/div/div[2]/div/div[4]/div/div[2]/input'
         xpath_allow = '/html/body/div/form/div/div/div[2]/div[1]/div/div/div/div/div/div[3]/div/div[2]/div/div[3]/div[2]/div/div/div[2]/input'
-        token_input = WebDriverWait(driver, 60).until(ec.presence_of_element_located((By.XPATH, xpath_token)))
+        token_input = WebDriverWait(driver, 120).until(ec.presence_of_element_located((By.XPATH, xpath_token)))
         token_input.send_keys(flow['user_code'])
         token_input.send_keys(Keys.RETURN)
-        uid_input = WebDriverWait(driver, 60).until(ec.presence_of_element_located((By.XPATH, xpath_username)))
+        uid_input = WebDriverWait(driver, 120).until(ec.presence_of_element_located((By.XPATH, xpath_username)))
         uid_input.send_keys(email)
         uid_input.send_keys(Keys.RETURN)
-        pwd_input = WebDriverWait(driver, 60).until(ec.presence_of_element_located((By.XPATH, xpath_password)))
+        pwd_input = WebDriverWait(driver, 120).until(ec.presence_of_element_located((By.XPATH, xpath_password)))
         pwd_input.send_keys(password)
         pwd_input.send_keys(Keys.RETURN)
-        allow_input = WebDriverWait(driver, 60).until(ec.presence_of_element_located((By.XPATH, xpath_allow)))
+        allow_input = WebDriverWait(driver, 120).until(ec.presence_of_element_located((By.XPATH, xpath_allow)))
         allow_input.send_keys(Keys.RETURN)
         time.sleep(3)
         driver.close()
