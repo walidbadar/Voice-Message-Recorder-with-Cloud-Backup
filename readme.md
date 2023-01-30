@@ -17,7 +17,6 @@
 <li>python-msgraph</li>
 <li>msal</li>
 </ul>
-sudo apt-get install libportaudio2
 
 <div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="sudo pip3 install -r ~/Wedding-Audio-Book/requirments.txt"><pre class="notranslate"><code>sudo pip3 install -r ~/Wedding-Audio-Book/requirments.txt</code></pre></div>
 <div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="sudo apt-get install libportaudio2"><pre class="notranslate"><code>sudo apt-get install libportaudio2</code></pre></div>
