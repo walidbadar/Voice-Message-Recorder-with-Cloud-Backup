@@ -113,8 +113,19 @@ def uploadThread(upload=None):
     time.sleep(uploadLoop)
     threading.Thread(target=uploadThread).start()
 
-threading.Thread(target=uploadThread).start()
-GPIO.add_event_detect(hangUp, GPIO.RISING, callback=recThread, bouncetime=1000)
 
-while True:
-    pass
+def loop():
+    threading.Thread(target=uploadThread).start()
+    GPIO.add_event_detect(hangUp, GPIO.RISING, callback=recThread, bouncetime=1000)
+    while True:
+        pass
+
+
+if __name__ == '__main__':
+    try:
+        print("Program Started")
+        loop()
+    except:
+        print("Error")
+    finally:
+        GPIO.cleanup()
