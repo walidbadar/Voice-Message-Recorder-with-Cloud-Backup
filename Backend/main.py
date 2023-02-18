@@ -13,8 +13,8 @@ import RPi.GPIO as GPIO
 # Variable for the GPIO pin number
 hangUp = 15
 hangUpDelay = 500
-uploadLoop = 60
-recordingTime = 60
+uploadLoop = 180
+recordingTime = 180
 
 path = '/home/mm/Wedding-Audio-Book'
 recPath = path + '/Recordings/'
@@ -122,7 +122,7 @@ def uploadThread(upload=None):
 
 
 def loop():
-    # threading.Thread(target=uploadThread).start()
+    threading.Thread(target=uploadThread).start()
     # GPIO.add_event_detect(hangUp, GPIO.BOTH, callback=recThread, bouncetime=hangUpDelay)
     while True:
         if GPIO.input(hangUp) == 0:
