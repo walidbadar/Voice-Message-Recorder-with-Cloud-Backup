@@ -15,7 +15,7 @@ hangUpDelay = 500
 uploadLoop = 10
 recordingTime = 10
 
-path = '/home/pi/Wedding-Audio-Book'
+path = '/home/mm/Wedding-Audio-Book'
 recPath = path + '/Recordings/'
 dbPath = path + '/DB/'
 
