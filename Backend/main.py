@@ -116,11 +116,12 @@ def uploadThread(upload=None):
 
 
 def loop():
-    # threading.Thread(target=uploadThread).start()
+    threading.Thread(target=uploadThread).start()
     while True:
         if GPIO.input(hangUp) == 0:
             recThread()
         else:
+            a=0
             print("Do nothing")
         pass
 
