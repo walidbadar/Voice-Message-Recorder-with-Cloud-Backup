@@ -7,16 +7,15 @@ from pydub import AudioSegment
 from pydub.playback import play
 from ms_graph import generate_access_token, GRAPH_API_ENDPOINT
 import RPi.GPIO as GPIO
-
 # import OPi.GPIO as GPIO
 
 # Variable for the GPIO pin number
 hangUp = 15
 hangUpDelay = 500
-uploadLoop = 180
-recordingTime = 180
+uploadLoop = 10
+recordingTime = 10
 
-path = '/home/mm/Wedding-Audio-Book'
+path = '/home/pi/Wedding-Audio-Book'
 recPath = path + '/Recordings/'
 dbPath = path + '/DB/'
 
@@ -30,13 +29,11 @@ GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)  # Ignore warning for now
 GPIO.setup(hangUp, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # Read output from door sensor
 
-
 def recThread(rec=None):
     fs = 44100
     q = queue.Queue()
-
+    
     print(GPIO.input(hangUp))
-
     # GPIO.remove_event_detect(hangUp)
 
     def callback(indata, frames, time, status):
@@ -45,9 +42,9 @@ def recThread(rec=None):
     if GPIO.input(hangUp) == 0:
         print("Recording Started")
         curFileName = str(dt.datetime.now())[:-5].replace(':', '.') + ".wav"
-
-        sf.write(file=recPath + curFileName, samplerate=fs, data=np.empty((0, 1)))
-        with sf.SoundFile(file=recPath + curFileName, mode='w', samplerate=fs, channels=1) as file:
+        
+        sf.write(file=recPath+curFileName, samplerate=fs, data=np.empty((0, 1)))
+        with sf.SoundFile(file=recPath+curFileName, mode='w', samplerate=fs, channels=1) as file:
             with sd.InputStream(samplerate=fs, channels=1, callback=callback):
 
                 preTime = time.time()
@@ -61,9 +58,9 @@ def recThread(rec=None):
                         break
     else:
         print("Recording Ended by Force")
+        
 
     # GPIO.add_event_detect(hangUp, GPIO.BOTH, callback=recThread, bouncetime=hangUpDelay)
-
 
 def uploadThread(upload=None):
     localFile = []
