@@ -54,13 +54,10 @@ def recThread(rec=None):
                     print("Recording")
                     if (curTime - preTime) > recordingTime:
                         print("Recording Ended")
-                        play(AudioSegment.from_file("recordEnd.wav"))
+                        play(AudioSegment.from_file(path + "/Backend/" + "recordEnd.wav"))
                         break
     else:
         print("Recording Ended by Force")
-        
-
-    # GPIO.add_event_detect(hangUp, GPIO.BOTH, callback=recThread, bouncetime=hangUpDelay)
 
 def uploadThread(upload=None):
     localFile = []
@@ -119,8 +116,7 @@ def uploadThread(upload=None):
 
 
 def loop():
-    threading.Thread(target=uploadThread).start()
-    # GPIO.add_event_detect(hangUp, GPIO.BOTH, callback=recThread, bouncetime=hangUpDelay)
+    # threading.Thread(target=uploadThread).start()
     while True:
         if GPIO.input(hangUp) == 0:
             recThread()
