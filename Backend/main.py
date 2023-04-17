@@ -27,7 +27,7 @@ APP_ID = '9a240c30-561e-4f61-8234-430d5191c82d'
 # Set up the GPIO pin for I/O
 GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)  # Ignore warning for now
-GPIO.setup(hangUp, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # Read output from door sensor
+GPIO.setup(hangUp, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # Read output from door sensor
 
 def recThread(rec=None):
     fs = 44100
