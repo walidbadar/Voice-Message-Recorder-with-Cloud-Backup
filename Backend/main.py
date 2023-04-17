@@ -120,11 +120,6 @@ def loop():
     while True:
         if GPIO.input(hangUp) == 0:
             recThread()
-        else:
-            a=0
-            print("Do nothing")
-        pass
-
 
 if __name__ == '__main__':
     try:
