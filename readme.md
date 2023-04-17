@@ -3,7 +3,11 @@
 ![Sample](https://user-images.githubusercontent.com/81442784/211213577-1323ff6a-4214-4540-96cf-0b4b39d02c09.png)
 
 <h1 id="dependencies">Install Nextcloud</h1>
-<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="curl -sSL https://raw.githubusercontent.com/nextcloud/nextcloudpi/master/install.sh | sudo bash"><pre class="notranslate"><code>curl -sSL https://raw.githubusercontent.com/nextcloud/nextcloudpi/master/install.sh | sudo bash</code></pre></div>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="sudo apt install snapd"><pre class="notranslate"><code>sudo apt install snapd</code></pre></div>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="sudo reboot"><pre class="notranslate"><code>sudo reboot</code></pre></div>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="sudo snap install core"><pre class="notranslate"><code>sudo snap install core</code></pre></div>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="sudo snap install nextcloud"><pre class="notranslate"><code>sudo snap install nextcloud</code></pre></div>
+
 
 <h1 id="dependencies">Python Dependencies</h1>
 <ul>
