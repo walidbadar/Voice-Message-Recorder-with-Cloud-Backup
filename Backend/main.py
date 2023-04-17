@@ -10,7 +10,7 @@ import RPi.GPIO as GPIO
 # import OPi.GPIO as GPIO
 
 # Variable for the GPIO pin number
-hangUp = 15
+hangUp = 7
 hangUpDelay = 500
 uploadLoop = 10
 recordingTime = 10
