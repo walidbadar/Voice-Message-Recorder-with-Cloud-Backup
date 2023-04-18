@@ -12,8 +12,8 @@ import RPi.GPIO as GPIO
 # Variable for the GPIO pin number
 hangUp = 7
 hangUpDelay = 500
-uploadLoop = 10
-recordingTime = 10
+uploadLoop = 180
+recordingTime = 180
 
 path = '/home/pi/Wedding-Audio-Book'
 recPath = path + '/Recordings/'
