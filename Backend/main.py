@@ -8,6 +8,7 @@ from pydub import AudioSegment
 from pydub.playback import play
 from ms_graph import generate_access_token, GRAPH_API_ENDPOINT
 import RPi.GPIO as GPIO
+
 # import OPi.GPIO as GPIO
 
 # Variables
@@ -15,7 +16,7 @@ recFlag = 0
 hangUp = 7
 hangUpDelay = 500
 bootDelay = 30
-uploadRefresh= 10
+uploadRefresh = 10
 uploadLoop = 180
 recordingTime = 180
 
@@ -34,6 +35,7 @@ GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)  # Ignore warning for now
 GPIO.setup(hangUp, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
+
 def greetings():
     pygame.mixer.music.load(path + "/Backend/" + "greeting.mp3")
     pygame.mixer.music.play()
@@ -43,13 +45,14 @@ def greetings():
             break
         pygame.time.Clock().tick(1)
 
+
 def recThread(rec=None):
     global recFlag
 
     fs = 44100
     q = queue.Queue()
-    
-    print(GPIO.input(hangUp))
+
+    # print(GPIO.input(hangUp))
     # GPIO.remove_event_detect(hangUp)
 
     def callback(indata, frames, time, status):
@@ -60,16 +63,16 @@ def recThread(rec=None):
         greetings()
 
         curFileName = str(dt.datetime.now())[:-5].replace(':', '.') + ".wav"
-        
-        sf.write(file=recPath+curFileName, samplerate=fs, data=np.empty((0, 1)))
-        with sf.SoundFile(file=recPath+curFileName, mode='w', samplerate=fs, channels=1) as file:
+
+        sf.write(file=recPath + curFileName, samplerate=fs, data=np.empty((0, 1)))
+        with sf.SoundFile(file=recPath + curFileName, mode='w', samplerate=fs, channels=1) as file:
             with sd.InputStream(samplerate=fs, channels=1, callback=callback):
 
                 preTime = time.time()
                 while GPIO.input(hangUp) == 0:
                     file.write(q.get())
                     curTime = time.time()
-                    #print("Recording")
+                    # print("Recording")
                     if (curTime - preTime) > recordingTime:
                         print("Recording Ended")
                         play(AudioSegment.from_file(path + "/Backend/" + "recordEnd.wav"))
@@ -77,10 +80,12 @@ def recThread(rec=None):
 
     recFlag = recFlag + 1
 
+
 def recFlagThread(rec=None):
     global recFlag
 
     recFlag = 0
+
 
 def generateToken(generate=None):
     global headers
@@ -91,13 +96,19 @@ def generateToken(generate=None):
         'Authorization': 'Bearer ' + access_token['access_token']
     }
 
+
 def uploadRate(upload=None):
     response = requests.get(GRAPH_API_ENDPOINT + f'/me/drive/items/root:/Audios:/children', headers=headers)
     oneDriveFiles = response.json()['value']
 
     noOfOneDriveFiles = len(oneDriveFiles)
     noOfLocalFiles = len(os.listdir(recPath))
-    successFactor = (noOfOneDriveFiles / noOfLocalFiles) * 100
+
+    if noOfOneDriveFiles != 0 and noOfLocalFiles != 0:
+        successFactor = (noOfOneDriveFiles / noOfLocalFiles) * 100
+
+    else:
+        successFactor = 0
 
     noOfOneDriveFilesDB = open(dbPath + "noOfOneDriveFiles.txt", "w")
     noOfOneDriveFilesDB.write(str(noOfOneDriveFiles))
@@ -111,6 +122,7 @@ def uploadRate(upload=None):
 
     time.sleep(uploadRefresh)
     threading.Thread(target=uploadRate).start()
+
 
 def uploadThread(upload=None):
     localFile = []
