@@ -1,4 +1,5 @@
 import os, time, serial, requests, queue, tempfile, threading
+import pygame
 import numpy as np
 import sounddevice as sd
 import soundfile as sf
@@ -9,9 +10,12 @@ from ms_graph import generate_access_token, GRAPH_API_ENDPOINT
 import RPi.GPIO as GPIO
 # import OPi.GPIO as GPIO
 
-# Variable for the GPIO pin number
+# Variables
+recFlag = 0
 hangUp = 7
 hangUpDelay = 500
+bootDelay = 30
+uploadRefresh= 10
 uploadLoop = 180
 recordingTime = 180
 
@@ -21,15 +25,27 @@ dbPath = path + '/DB/'
 
 APP_ID = '9a240c30-561e-4f61-8234-430d5191c82d'
 
-# Orange Pi Zero Board
-# GPIO.setboard(GPIO.ZERO)
+# initialize pygame
+pygame.init()
+pygame.mixer.init()
 
 # Set up the GPIO pin for I/O
 GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)  # Ignore warning for now
-GPIO.setup(hangUp, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # Read output from door sensor
+GPIO.setup(hangUp, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
+def greetings():
+    pygame.mixer.music.load(path + "/Backend/" + "greeting.mp3")
+    pygame.mixer.music.play()
+    while pygame.mixer.music.get_busy():
+        if GPIO.input(hangUp) == 1:
+            pygame.mixer.music.stop()
+            break
+        pygame.time.Clock().tick(1)
 
 def recThread(rec=None):
+    global recFlag
+
     fs = 44100
     q = queue.Queue()
     
@@ -39,8 +55,10 @@ def recThread(rec=None):
     def callback(indata, frames, time, status):
         q.put(indata.copy())
 
-    if GPIO.input(hangUp) == 0:
+    if recFlag == 0 and GPIO.input(hangUp) == 0:
         print("Recording Started")
+        greetings()
+
         curFileName = str(dt.datetime.now())[:-5].replace(':', '.') + ".wav"
         
         sf.write(file=recPath+curFileName, samplerate=fs, data=np.empty((0, 1)))
@@ -51,18 +69,21 @@ def recThread(rec=None):
                 while GPIO.input(hangUp) == 0:
                     file.write(q.get())
                     curTime = time.time()
-                    print("Recording")
+                    #print("Recording")
                     if (curTime - preTime) > recordingTime:
                         print("Recording Ended")
                         play(AudioSegment.from_file(path + "/Backend/" + "recordEnd.wav"))
                         break
-    else:
-        print("Recording Ended by Force")
 
-def uploadThread(upload=None):
-    localFile = []
-    oneDriveFile = []
+    recFlag = recFlag + 1
 
+def recFlagThread(rec=None):
+    global recFlag
+
+    recFlag = 0
+
+def generateToken(generate=None):
+    global headers
     scopes = ['Files.ReadWrite']
 
     access_token = generate_access_token(APP_ID, scopes=scopes)
@@ -70,14 +91,9 @@ def uploadThread(upload=None):
         'Authorization': 'Bearer ' + access_token['access_token']
     }
 
+def uploadRate(upload=None):
     response = requests.get(GRAPH_API_ENDPOINT + f'/me/drive/items/root:/Audios:/children', headers=headers)
     oneDriveFiles = response.json()['value']
-
-    for file in oneDriveFiles:
-        oneDriveFile.append(file['name'])
-
-    for file in os.listdir(recPath):
-        localFile.append(file)
 
     noOfOneDriveFiles = len(oneDriveFiles)
     noOfLocalFiles = len(os.listdir(recPath))
@@ -92,6 +108,22 @@ def uploadThread(upload=None):
     successFactorDB = open(dbPath + "successFactor.txt", "w")
     successFactorDB.write(str(successFactor)[:5])
     successFactorDB.close()
+
+    time.sleep(uploadRefresh)
+    threading.Thread(target=uploadRate).start()
+
+def uploadThread(upload=None):
+    localFile = []
+    oneDriveFile = []
+
+    response = requests.get(GRAPH_API_ENDPOINT + f'/me/drive/items/root:/Audios:/children', headers=headers)
+    oneDriveFiles = response.json()['value']
+
+    for file in oneDriveFiles:
+        oneDriveFile.append(file['name'])
+
+    for file in os.listdir(recPath):
+        localFile.append(file)
 
     fileToBeUploaded = list(set(localFile).difference(set(oneDriveFile)))
     print(fileToBeUploaded)
@@ -117,12 +149,17 @@ def uploadThread(upload=None):
 
 def loop():
     threading.Thread(target=uploadThread).start()
+    threading.Thread(target=uploadRate).start()
+    GPIO.add_event_detect(hangUp, GPIO.RISING, callback=recFlagThread)
     while True:
         if GPIO.input(hangUp) == 0:
             recThread()
 
+
 if __name__ == '__main__':
     try:
+        generateToken()
+        time.sleep(bootDelay)
         print("Program Started")
         loop()
     except:
