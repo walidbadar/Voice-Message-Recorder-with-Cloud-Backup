@@ -106,7 +106,7 @@ def uploadThread(upload=None):
     noOfOneDriveFiles = len(oneDriveFiles)
     noOfLocalFiles = len(os.listdir(recPath))
 
-    if noOfOneDriveFiles != 0 or noOfLocalFiles != 0:
+    if noOfOneDriveFiles != 0 and noOfLocalFiles != 0:
         successFactor = (noOfOneDriveFiles / noOfLocalFiles) * 100
 
     else:
