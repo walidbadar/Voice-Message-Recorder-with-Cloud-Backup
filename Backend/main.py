@@ -16,8 +16,7 @@ recFlag = 0
 hangUp = 7
 hangUpDelay = 500
 bootDelay = 30
-uploadRefresh = 10
-uploadLoop = 180
+uploadLoop = 10
 recordingTime = 180
 
 path = '/home/pi/Wedding-Audio-Book'
@@ -97,7 +96,10 @@ def generateToken(generate=None):
     }
 
 
-def uploadRate(upload=None):
+def uploadThread(upload=None):
+    localFile = []
+    oneDriveFile = []
+
     response = requests.get(GRAPH_API_ENDPOINT + f'/me/drive/items/root:/Audios:/children', headers=headers)
     oneDriveFiles = response.json()['value']
 
@@ -119,17 +121,6 @@ def uploadRate(upload=None):
     successFactorDB = open(dbPath + "successFactor.txt", "w")
     successFactorDB.write(str(successFactor)[:5])
     successFactorDB.close()
-
-    time.sleep(uploadRefresh)
-    threading.Thread(target=uploadRate).start()
-
-
-def uploadThread(upload=None):
-    localFile = []
-    oneDriveFile = []
-
-    response = requests.get(GRAPH_API_ENDPOINT + f'/me/drive/items/root:/Audios:/children', headers=headers)
-    oneDriveFiles = response.json()['value']
 
     for file in oneDriveFiles:
         oneDriveFile.append(file['name'])
@@ -161,7 +152,6 @@ def uploadThread(upload=None):
 
 def loop():
     threading.Thread(target=uploadThread).start()
-    threading.Thread(target=uploadRate).start()
     GPIO.add_event_detect(hangUp, GPIO.RISING, callback=recFlagThread)
     while True:
         if GPIO.input(hangUp) == 0:
