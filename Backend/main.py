@@ -32,14 +32,14 @@ pygame.mixer.init()
 # Set up the GPIO pin for I/O
 GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)  # Ignore warning for now
-GPIO.setup(hangUp, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(hangUp, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 
 def greetings():
     pygame.mixer.music.load(path + "/Backend/" + "greeting.mp3")
     pygame.mixer.music.play()
     while pygame.mixer.music.get_busy():
-        if GPIO.input(hangUp) == 1:
+        if GPIO.input(hangUp) == 0:
             pygame.mixer.music.stop()
             break
         pygame.time.Clock().tick(1)
@@ -57,7 +57,7 @@ def recThread(rec=None):
     def callback(indata, frames, time, status):
         q.put(indata.copy())
 
-    if recFlag == 0 and GPIO.input(hangUp) == 0:
+    if recFlag == 0 and GPIO.input(hangUp) == 1:
         print("Recording Started")
         greetings()
 
@@ -68,7 +68,7 @@ def recThread(rec=None):
             with sd.InputStream(samplerate=fs, channels=1, callback=callback):
 
                 preTime = time.time()
-                while GPIO.input(hangUp) == 0:
+                while GPIO.input(hangUp) == 1:
                     file.write(q.get())
                     curTime = time.time()
                     # print("Recording")
@@ -152,9 +152,9 @@ def uploadThread(upload=None):
 
 def loop():
     threading.Thread(target=uploadThread).start()
-    GPIO.add_event_detect(hangUp, GPIO.RISING, callback=recFlagThread)
+    GPIO.add_event_detect(hangUp, GPIO.FALLING, callback=recFlagThread)
     while True:
-        if GPIO.input(hangUp) == 0:
+        if GPIO.input(hangUp) == 1:
             recThread()
 
 
