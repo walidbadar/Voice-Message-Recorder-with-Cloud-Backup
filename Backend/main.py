@@ -31,7 +31,7 @@ pygame.mixer.init()
 # Set up the GPIO pin for I/O
 GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)  # Ignore warning for now
-GPIO.setup(hangUp, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(hangUp, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 
 def greetings():
