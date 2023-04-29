@@ -14,7 +14,6 @@ import RPi.GPIO as GPIO
 # Variables
 recFlag = 0
 hangUp = 7
-hangUpDelay = 500
 bootDelay = 10
 uploadLoop = 10
 recordingTime = 180
