@@ -15,7 +15,7 @@ import RPi.GPIO as GPIO
 recFlag = 0
 hangUp = 7
 hangUpDelay = 500
-bootDelay = 30
+bootDelay = 10
 uploadLoop = 10
 recordingTime = 180
 
@@ -51,6 +51,7 @@ def recThread(rec=None):
     fs = 44100
     q = queue.Queue()
 
+    # print("hangUp")
     # print(GPIO.input(hangUp))
     # GPIO.remove_event_detect(hangUp)
 
