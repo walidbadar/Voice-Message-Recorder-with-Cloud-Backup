@@ -22,6 +22,7 @@ path = '/home/pi/Wedding-Audio-Book'
 recPath = path + '/Recordings/'
 dbPath = path + '/DB/'
 
+oneDriveFolder = "Audios"
 APP_ID = '9a240c30-561e-4f61-8234-430d5191c82d'
 
 # initialize pygame
@@ -100,7 +101,7 @@ def uploadThread(upload=None):
     localFile = []
     oneDriveFile = []
 
-    response = requests.get(GRAPH_API_ENDPOINT + f'/me/drive/items/root:/Audios:/children', headers=headers)
+    response = requests.get(GRAPH_API_ENDPOINT + f'/me/drive/items/root:/' + oneDriveFolder + ':/children', headers=headers)
     oneDriveFiles = response.json()['value']
 
     noOfOneDriveFiles = len(oneDriveFiles)
